@@ -1,0 +1,23 @@
+= libfgb =
+
+== Description ==
+
+FGb is a C-library for computing Gröbner bases.
+
+== License ==
+
+For academic use, only.
+
+== Upstream Contact ==
+
+J.C. Faugère, see https://www-polsys.lip6.fr/~jcf/FGb/index.html.
+
+== Dependencies ==
+
+Put a bulleted list of dependencies here:
+
+* ...
+
+== Special Update/Build Instructions ==
+
+...

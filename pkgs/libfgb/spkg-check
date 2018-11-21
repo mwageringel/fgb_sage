@@ -1,0 +1,6 @@
+cd src
+$MAKE test LIBDIR=$SAGE_LOCAL/lib
+if [ $? -ne 0 ]; then
+    echo >&2 "Error running tests for libfgb."
+    exit 1
+fi

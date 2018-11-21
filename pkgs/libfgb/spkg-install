@@ -1,0 +1,17 @@
+cd src
+if [ $UNAME == "Darwin" ]; then
+    FGB_LIBDIR=macosx
+elif [ $UNAME == "Linux" ]; then
+    FGB_LIBDIR=x64
+else
+    echo >&2 "Error installing libfgb: libfgb is not available for this platform."
+    exit 1
+fi
+
+# include
+mkdir -p $SAGE_DESTDIR$SAGE_LOCAL/include/fgb && cp \
+    nv/int/protocol_maple.h \
+    nv/maple/C/call_fgb{.h,_basic.h} \
+    nv/protocol/* "$_"
+# lib
+mkdir $SAGE_DESTDIR$SAGE_LOCAL/lib && cp nv/maple/C/$FGB_LIBDIR/lib*.a "$_"

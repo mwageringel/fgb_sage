@@ -1,0 +1,15 @@
+/build/
+/local/
+/upstream/
+/call_FGb/
+fgb_sage.egg-info/
+*.tar.gz
+*.so
+*.pyc
+_fgb_sage_int.c
+_fgb_sage_int.cpp
+_fgb_sage_int.html
+_fgb_sage_modp.c
+_fgb_sage_modp.cpp
+_fgb_sage_modp.html
+_fgb_sage_modp.pyx

@@ -1,0 +1,41 @@
+From fa4843ac76c2b10c888e8b5d54ac5ad1747267fa Mon Sep 17 00:00:00 2001
+From: Markus Wageringel <markus.wageringel+gh@gmail.com>
+Date: Sat, 28 Jul 2018 22:54:16 +0200
+Subject: [PATCH] fix conflicting declarations
+
+---
+ nv/maple/C/call_fgb.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/nv/maple/C/call_fgb.h b/nv/maple/C/call_fgb.h
+index e730b3b..277d0ec 100755
+--- a/nv/maple/C/call_fgb.h
++++ b/nv/maple/C/call_fgb.h
+@@ -84,7 +84,7 @@ int FGb_verb_info=0;
+ extern int FGb_verb_info;
+ #endif /*  LIBMODE EQ 2 */
+ #ifndef CALL_FGB_DO_NOT_DEFINE
+-FILE* log_output;
++extern FILE* log_output;
+ void info_Maple(const char* s)
+ {
+   if (FGb_verb_info)
+@@ -106,6 +106,7 @@ void FGb_error_Maple(const char* s)
+   FGb_int_error_Maple(s);
+ }
+ 
++#if LIBMODE EQ 2
+ void init_FGb_Integers()
+ {
+   FGB(init_urgent)(4,2,"DRLDRL",100000,0); /* Do not change the following parameters
+@@ -116,6 +117,7 @@ void init_FGb_Integers()
+   FGB(init)(1,1,0,log_output);/* do not change */
+   FGB(reset_coeffs)(1); /* We compute in Q[x1,x2,x3,x4,x5,x6] */
+ }
++#endif /* LIBMODE EQ 2 */
+ 
+ extern int FGb_int_internal_threads(const int tr0);
+ extern int FGb_internal_threads(const int tr0);
+-- 
+2.16.2
+
