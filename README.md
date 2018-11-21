@@ -1,8 +1,8 @@
 # fgb_sage
 
-This is a [Sage](https://www.sagemath.org/) interface to
+This is a [SageMath](https://www.sagemath.org/) interface to
 [FGb](https://www-polsys.lip6.fr/~jcf/FGb/index.html).
-*FGb* is a C-library by J.C. Faugère for Gröbner basis computations, with
+*FGb* is a C-library by J. C. Faugère for Gröbner basis computations, with
 support for:
 
 * Gröbner bases over ℚ and finite fields
@@ -15,7 +15,7 @@ interface between the C-interface to *FGb* and polynomials and ideals in
 
 ## Examples
 
-See the examples in (src/fgb_sage.py).
+See the examples in [src/fgb_sage.py](src/fgb_sage.py).
 
 ## Installation
 
