@@ -64,12 +64,6 @@ def internal_version():
     return fgb_internal_version()
 
 def fgb_eliminate(polyseq, n_elim_variables, **kwds):
-    kwds.setdefault('force_elim', 0)
-    kwds.setdefault('threads', 1)
-    kwds.setdefault('matrix_bound', 500000)
-    kwds.setdefault('verbosity', 1)
-    kwds.setdefault('max_base', 100000)
-
     cdef SFGB_Options Opt
     cdef FGB_Options options = &Opt
     try:

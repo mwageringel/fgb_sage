@@ -68,7 +68,23 @@ def groebner_basis(polys, **kwds):
 
         sage: gb.ideal().groebner_basis.is_in_cache()   # optional fgb_sage
         False
+
+    TESTS:
+
+        sage: R = PolynomialRing(QQ, 5, 'x', order="degrevlex(2),degrevlex(3)")
+        sage: I = sage.rings.ideal.Cyclic(R)
+        sage: import fgb_sage
+        sage: gb = fgb_sage.groebner_basis(I, force_elim=1) # optional fgb_sage, random
+        ...
+        sage: I.groebner_basis.is_in_cache()                # optional fgb_sage
+        False
     """
+    kwds.setdefault('force_elim', 0)
+    kwds.setdefault('threads', 1)
+    kwds.setdefault('matrix_bound', 500000)
+    kwds.setdefault('verbosity', 1)
+    kwds.setdefault('max_base', 100000)
+
     polyseq = PolynomialSequence(polys)
     ring = polyseq.ring()
     field = ring.base_ring()
@@ -90,7 +106,7 @@ def groebner_basis(polys, **kwds):
         gb = _fgb_sage_modp.fgb_eliminate(polyseq, n_elim_variables, **kwds)
 
     from sage.rings.polynomial.multi_polynomial_ideal import MPolynomialIdeal
-    if isinstance(polys, MPolynomialIdeal):
+    if isinstance(polys, MPolynomialIdeal) and not kwds['force_elim']:
         if not polys.groebner_basis.is_in_cache():
             polys.groebner_basis.set_cache(gb)
 
