@@ -19,8 +19,8 @@ See the examples in [src/fgb_sage.py](src/fgb_sage.py).
 
 ## Installation
 
-Requirements: Linux or Mac OS X, recent version of *Sage*.
-(Tested with CentOS 7.5.1804, OS X 10.13.6, Sage 8.1, 8.4)
+Requirements: Linux with a recent version of Sage.
+(Tested with CentOS 7.5.1804, Sage 8.1, 8.4, 8.8)
 
 First, in this directory, compile and run the tests with
 ```
@@ -40,21 +40,9 @@ sage -pip install --upgrade --no-index -v --user .
 
 ## Issues
 
-* On Ubuntu, *FGb* itself does not seem to work.
-
-* On Mac OS X, some versions of *Sage* use the default `gcc` compiler provided
-  by Apple (`clang`) which appears to be incompatible with the `-fopenmp`
-  option used by this package. An alternative compiler can be used by
-  installing `gcc` with [Homebrew](https://brew.sh/) using
-  ```
-  brew install gcc
-  ```
-  which currently installs as `gcc-8`. To install this package then use
-  ```
-  CC=gcc-8 CXX=g++-8 sage setup.py test
-
-  CC=gcc-8 CXX=g++-8 sage -pip install --upgrade --no-index -v .
-  ```
+* Support for macOS was dropped due to difficulties in compiling this package
+  with `-fopenmp` since Sage version 8.8. Compiling the entirety of Sage with
+  GCC support might make this work, but this was not tested.
 
 ## License
 

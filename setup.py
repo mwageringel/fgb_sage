@@ -122,7 +122,7 @@ ext_modules = map(lambda (name, libmode):
             include_dirs=["local/include"] + sage_include_directories(),
             library_dirs=["local/lib"],
             libraries=["fgb", "fgbexp", "gb", "gbexp", "minpoly", "minpolyvgf", "gmp", "m"],
-            extra_compile_args=["-fopenmp"],
+            extra_compile_args=["-std=c++11", "-fopenmp"],
             extra_link_args=["-fopenmp"],
             define_macros=[
                 ("LIBMODE", libmode),
