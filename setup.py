@@ -116,7 +116,7 @@ copy_file(
         "src/" + PYX_FILES[0][0] + ".pyx",
         "src/" + PYX_FILES[1][0] + ".pyx", update=True)
 
-ext_modules = map(lambda (name, libmode):
+ext_modules = [
     cythonize(
         [Extension(name,
             include_dirs=["local/include"] + sage_include_directories(),
@@ -133,10 +133,11 @@ ext_modules = map(lambda (name, libmode):
         compile_time_env=dict(
             PY_LIBMODE=libmode,
             PY_FGB_MAC=(UNAME == 'Darwin')),
+        compiler_directives=dict(language_level=2),
         annotate=False,
         aliases=cython_aliases()
-    )[0],
-    PYX_FILES)
+    )[0]
+    for (name, libmode) in PYX_FILES]
 
 setuptools.setup(
     cmdclass={

@@ -2,6 +2,7 @@
 
 # _fgb_int.pyx is source file,
 # _fgb_modp.pyx is auto-generated!
+from sage.cpython.string cimport str_to_bytes
 from sage.libs.gmp.types cimport mpz_t, mpz_ptr
 from sage.libs.gmp.mpz cimport mpz_init_set_si
 from sage.rings.integer cimport Integer
@@ -142,7 +143,8 @@ cdef class FGbComputation:
         if not self.input_basis or not self.output_basis or not self.variables or not self.exponents:
             raise MemoryError()
 
-        self.pystr_variables = [str(x) for x in self.ring.gens()]
+        self.pystr_variables = [str_to_bytes(x) for x in
+                                self.ring.variable_names()]
         cdef int i, j, k
         for (i, x) in enumerate(self.pystr_variables):
             self.variables[i] = x
