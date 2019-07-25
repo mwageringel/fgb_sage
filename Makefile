@@ -30,16 +30,16 @@ test:
 coverage:
 	$(SAGE) -coverage $(PACKAGE)/*
 
-# doc:
-# 	cd docs && $(SAGE) -sh -c "make html"
+doc:
+	cd docs && $(SAGE) -sh -c "make html"
 
 # doc-pdf:
 # 	cd docs && $(SAGE) -sh -c "make latexpdf"
 
-clean: clean-doc
+clean: doc-clean
 	cd $(PACKAGE) && rm -f *.so *.html *.pyc _fgb_sage_modp.{pyx,cpp} _fgb_sage_int.cpp
 
-clean-doc:
-	# cd docs && $(SAGE) -sh -c "make clean"
+doc-clean:
+	cd docs && rm -rf _build/
 
-.PHONY: all install install-user develop test coverage clean clean-doc doc doc-pdf
+.PHONY: all install install-user develop test coverage clean doc-clean doc doc-pdf

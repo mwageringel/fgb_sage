@@ -1,7 +1,13 @@
+"""
+This interface has two main functions:
+
+* :func:`groebner_basis` - compute a Groebner basis
+* :func:`eliminate` - compute an elimination ideal
+
+"""
+
 from __future__ import absolute_import
 from sage.rings.polynomial.multi_polynomial_sequence import PolynomialSequence
-
-__all__ = ['MAX_PRIME', 'groebner_basis', 'eliminate', 'internal_version']
 
 MAX_PRIME = 65521
 
@@ -12,7 +18,7 @@ def groebner_basis(polys, **kwds):
     Supported term orders of the underlying polynomial ring are ``degrevlex``
     orders, as well as block orders with two ``degrevlex`` blocks (elimination
     orders).  Supported coefficient fields are QQ and finite prime fields of
-    size up to ``MAX_PRIME`` = 65521 < 2^16.
+    size up to ``MAX_PRIME`` `= 65521 < 2^16`.
 
     INPUT:
 
@@ -39,14 +45,15 @@ def groebner_basis(polys, **kwds):
 
     EXAMPLES:
 
-    This example computes a Groebner basis with respect to an elimination order::
+    This example computes a Groebner basis with respect to an elimination
+    order::
 
         sage: R = PolynomialRing(QQ, 5, 'x', order="degrevlex(2),degrevlex(3)")
         sage: I = sage.rings.ideal.Cyclic(R)
-        sage: import fgb_sage                               # optional fgb_sage
-        sage: gb = fgb_sage.groebner_basis(I)               # optional fgb_sage, random
+        sage: import fgb_sage                    # optional fgb_sage
+        sage: gb = fgb_sage.groebner_basis(I)    # optional fgb_sage, random
         ...
-        sage: gb.is_groebner(), gb.ideal() == I             # optional fgb_sage
+        sage: gb.is_groebner(), gb.ideal() == I  # optional fgb_sage
         (True, True)
 
     Over finite fields, parallel computations are supported::
@@ -57,22 +64,25 @@ def groebner_basis(polys, **kwds):
         sage: gb.is_groebner(), gb.ideal() == I                       # optional fgb_sage
         (True, True)
 
-    If `fgb_sage.groebner_basis` is called with an ideal, the result is cached
-    on `MPolynomialIdeal.groebner_basis` so that other computations on the
-    ideal do not need to recompute a Groebner basis::
+    If :func:`fgb_sage.groebner_basis` is called with an ideal, the result is
+    cached on :meth:`MPolynomialIdeal.groebner_basis` so that other
+    computations on the ideal do not need to recompute a Groebner basis::
 
         sage: I.groebner_basis.is_in_cache()            # optional fgb_sage
         True
         sage: I.groebner_basis() is gb                  # optional fgb_sage
         True
 
-    However, note that `gb.ideal()` returns a new ideal and, thus, does not
+    However, note that ``gb.ideal()`` returns a new ideal and, thus, does not
     have a Groebner basis in cache::
 
         sage: gb.ideal().groebner_basis.is_in_cache()   # optional fgb_sage
         False
 
     TESTS:
+
+    Check that the result is not cached if it is only a basis of an
+    elimination ideal::
 
         sage: R = PolynomialRing(QQ, 5, 'x', order="degrevlex(2),degrevlex(3)")
         sage: I = sage.rings.ideal.Cyclic(R)
@@ -132,7 +142,7 @@ def eliminate(polys, elim_variables, **kwds):
 
     OUTPUT: a Groebner basis of the elimination ideal.
 
-    EXAMPLES:
+    EXAMPLES::
 
         sage: R.<x,y,t,s,z> = PolynomialRing(QQ,5)
         sage: I = R * [x-t,y-t^2,z-t^3,s-x+y^3]
@@ -146,13 +156,10 @@ def eliminate(polys, elim_variables, **kwds):
         sage: gb.ideal() == I.elimination_ideal([t,s])       # optional - fgb_sage
         True
 
-    .. SEEALSO::
+    .. NOTE::
 
-        :func:`groebner_basis`
-
-    .. WARNING::
-
-        In some cases, this function fails to set the correct elimination order, see :trac:`24981`.
+        In some cases, this function fails to set the correct elimination
+        order, see :trac:`24981`. This was fixed in Sage 8.7.
     """
     kwds.setdefault('force_elim', 1)
     polyseq = PolynomialSequence(polys)
@@ -172,20 +179,20 @@ def eliminate(polys, elim_variables, **kwds):
         gb = groebner_basis(PolynomialSequence(block_ring, polyseq), **kwds)
         return PolynomialSequence(ring, gb, immutable=True)
 
-"""
+def internal_version():
+    r"""
     Get the internal version of FGb.
 
-    OUTPUT: a dictionary containing the versions of FGb for `FGb_int` and
-    `FGb_modp`, characteristic 0 and positive characteristic, respectively.
-    These versions differ between Linux and Mac.
+    OUTPUT: a dictionary containing the versions of FGb for ``FGb_int`` and
+    ``FGb_modp``, characteristic 0 and positive characteristic, respectively.
+    These versions differ between Linux and macOS.
 
-    EXAMPLES:
+    EXAMPLES::
 
         sage: import fgb_sage                   # optional - fgb_sage
-        sage: fgb_sage.internal_version()       # optional - fgb_sage, random
-        {'FGb_int': 14537, 'FGb_modp': 14536}
-"""
-def internal_version():
+        sage: fgb_sage.internal_version()       # optional - fgb_sage
+        {'FGb_int': ..., 'FGb_modp': ...}
+    """
     from fgb_sage import _fgb_sage_int, _fgb_sage_modp
     return dict(FGb_int=_fgb_sage_int.internal_version(),
             FGb_modp=_fgb_sage_modp.internal_version())
