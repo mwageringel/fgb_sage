@@ -2,6 +2,9 @@
 ``fgb_sage``
 ############
 
+.. image:: https://travis-ci.com/mwageringel/fgb_sage.svg?branch=master
+   :target: https://travis-ci.com/mwageringel/fgb_sage
+   :alt: Build Status
 .. image:: https://readthedocs.org/projects/fgb-sage/badge/?version=latest
    :target: https://fgb-sage.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
@@ -31,7 +34,8 @@ Installation
 ============
 
 **Requirements**: Linux with a recent version of `Sage <SAGE_>`_
-(tested with CentOS 7.5.1804, Sage 8.1, 8.4, 8.8).
+(tested with CentOS 7.5.1804, Sage 8.1, 8.4, 8.8, and on Travis-CI with
+Ubuntu 18.04).
 
 First, clone the `repository from GitHub <fgb_sage_gh_>`_ and then compile and
 run the tests::
@@ -52,7 +56,7 @@ access required), run::
 Issues
 ------
 
-* Support for macOS was dropped for the time being due to difficulties in
+* Support for macOS has been dropped for the time being due to difficulties in
   compiling this package with ``-fopenmp`` since Sage version 8.8. Compiling
   the entirety of Sage with GCC support might make this work, but this was not
   tested.

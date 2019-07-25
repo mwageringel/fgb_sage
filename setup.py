@@ -6,7 +6,7 @@ from distutils.file_util import copy_file
 from distutils.dir_util import mkpath, remove_tree, copy_tree
 from distutils import log
 from Cython.Build import cythonize
-from sage.env import sage_include_directories, SAGE_INC, cython_aliases, UNAME
+from sage.env import sage_include_directories, cython_aliases, UNAME
 import os
 import sys
 
@@ -78,7 +78,9 @@ class BuildLibfgbCommand(setuptools.Command):
 
         log.info("Applying patches.")
         os.chdir(libfgb_builddir)
-        os.system("sage-apply-patches %s" % os.path.join(cwd, libfgb_pkgdir, "patches"))
+        if os.system("sage-apply-patches %s" % os.path.join(cwd, libfgb_pkgdir, "patches")):
+            log.error("Failed to apply patches.")
+            sys.exit(1)
         os.chdir(cwd)
 
         log.info("Copying include and lib files.")
@@ -112,11 +114,23 @@ class BuildExtCommand(setuptools.command.build_ext.build_ext):
         setuptools.command.build_ext.build_ext.run(self)
 
 PYX_FILES = [("_fgb_sage_int", 2), ("_fgb_sage_modp", 1)]
+pyx_src = os.path.join(SRC, PYX_FILES[0][0] + ".pyx")
+pyx_dst = os.path.join(SRC, PYX_FILES[1][0] + ".pyx")
 
 # We always copy the source files here, as they are needed for ext_modules below
-copy_file(
-        os.path.join(SRC, PYX_FILES[0][0] + ".pyx"),
-        os.path.join(SRC, PYX_FILES[1][0] + ".pyx"), update=True)
+log.info("Copying %s -> %s" % (pyx_src, pyx_dst))
+copy_file(pyx_src, pyx_dst, update=True)
+if not os.path.exists(pyx_dst):
+    log.error("Failed to generate %s" % pyx_dst)
+    sys.exit(1)
+# This is a workaround for Ubuntu on Travis where update=True results in empty
+# files
+if os.path.getsize(pyx_dst) == 0:
+    log.warn("Using fallback since target is empty: %s" % pyx_dst)
+    copy_file(pyx_src, pyx_dst, update=False)
+    if not os.path.exists(pyx_dst) or os.path.getsize(pyx_dst) == 0:
+        log.error("Failed to generate %s" % pyx_dst)
+        sys.exit(1)
 
 ext_modules = [
     cythonize(
