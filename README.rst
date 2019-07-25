@@ -2,11 +2,15 @@
 ``fgb_sage``
 ############
 
+.. image:: https://readthedocs.org/projects/fgb-sage/badge/?version=latest
+   :target: https://fgb-sage.readthedocs.io/en/latest/?badge=latest
+   :alt: Documentation Status
+
 ************************
 A Sage interface for FGb
 ************************
 
-This package is a `SageMath <https://www.sagemath.org/>`_ interface to FGb_ and
+This package is a `SageMath <SAGE_>`_ interface to FGb_ and
 can be installed as a Python package for use with Sage. It provides a simple
 link between the C-interface of FGb and polynomials and ideals in Sage.
 
@@ -20,18 +24,17 @@ support for:
 Examples
 ========
 
-See the examples and documentation in
-`fgb_sage/fgb_sage.py <fgb_sage/fgb_sage.py>`_.
+See the examples and documentation at
+`https://fgb-sage.readthedocs.io <fgb_sage_rdt_>`_.
 
 Installation
 ============
 
-**Requirements**: Linux with a recent version of Sage
+**Requirements**: Linux with a recent version of `Sage <SAGE_>`_
 (tested with CentOS 7.5.1804, Sage 8.1, 8.4, 8.8).
 
-First, clone the `repository from GitHub
-<https://github.com/mwageringel/fgb_sage>`_ and then compile and run the
-tests::
+First, clone the `repository from GitHub <fgb_sage_gh_>`_ and then compile and
+run the tests::
 
     git clone https://github.com/mwageringel/fgb_sage.git && cd fgb_sage
     sage setup.py test
@@ -54,4 +57,7 @@ Issues
   the entirety of Sage with GCC support might make this work, but this was not
   tested.
 
+.. _SAGE: https://www.sagemath.org/
 .. _FGb: https://www-polsys.lip6.fr/~jcf/FGb/index.html
+.. _fgb_sage_gh: https://github.com/mwageringel/fgb_sage
+.. _fgb_sage_rdt: https://fgb-sage.readthedocs.io/en/latest/#module-fgb_sage
