@@ -15,7 +15,7 @@ interface between the C-interface to *FGb* and polynomials and ideals in
 
 ## Examples
 
-See the examples in [src/fgb_sage.py](src/fgb_sage.py).
+See the examples in [fgb_sage/fgb_sage.py](fgb_sage/fgb_sage.py).
 
 ## Installation
 

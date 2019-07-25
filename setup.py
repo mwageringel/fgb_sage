@@ -14,6 +14,8 @@ UPSTREAM_TAR_URL = "https://www-polsys.lip6.fr/~jcf/FGb/C/@downloads/call_FGb6.m
 UPSTREAM_TAR_BASEDIR = "call_FGb"
 
 cwd = os.path.abspath(os.getcwd())
+SRC = "fgb_sage"
+VERSION = open("VERSION").read().strip()
 
 def md5sum(filename):
     import hashlib
@@ -94,7 +96,7 @@ class BuildLibfgbCommand(setuptools.Command):
 
 class TestCommand(test):
     def run_tests(self):
-        errno = os.system("sage -t --force-lib --optional=sage,fgb_sage src")
+        errno = os.system("sage -t --force-lib --optional=sage,fgb_sage %s" % SRC)
         if errno != 0:
             sys.exit(1)
 
@@ -113,12 +115,12 @@ PYX_FILES = [("_fgb_sage_int", 2), ("_fgb_sage_modp", 1)]
 
 # We always copy the source files here, as they are needed for ext_modules below
 copy_file(
-        "src/" + PYX_FILES[0][0] + ".pyx",
-        "src/" + PYX_FILES[1][0] + ".pyx", update=True)
+        os.path.join(SRC, PYX_FILES[0][0] + ".pyx"),
+        os.path.join(SRC, PYX_FILES[1][0] + ".pyx"), update=True)
 
 ext_modules = [
     cythonize(
-        [Extension(name,
+        [Extension("fgb_sage." + name,
             include_dirs=["local/include"] + sage_include_directories(),
             library_dirs=["local/lib"],
             libraries=["fgb", "fgbexp", "gb", "gbexp", "minpoly", "minpolyvgf", "gmp", "m"],
@@ -128,7 +130,7 @@ ext_modules = [
                 ("LIBMODE", libmode),
                 ("FGB_MAC", 1 if UNAME == 'Darwin' else 0),
                 ("FGB_MAC_MAX_INPUT", 100000)],
-            sources=["src/" + name + ".pyx"]
+            sources=[os.path.join(SRC, name + ".pyx")]
         )],
         compile_time_env=dict(
             PY_LIBMODE=libmode,
@@ -147,7 +149,6 @@ setuptools.setup(
         'clean': CleanCommand,
         },
     name="fgb_sage",
-    version="0.1",
-    package_dir = {'': 'src'},
-    py_modules=["fgb_sage"],
+    version=VERSION,
+    packages=["fgb_sage"],
     ext_modules=ext_modules)

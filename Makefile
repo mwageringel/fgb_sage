@@ -1,7 +1,7 @@
 # This Makefile is for convenience as a reminder and shortcut for the most used commands
 
 # Package folder
-PACKAGE=src
+PACKAGE=fgb_sage
 
 # change to your sage command if needed
 SAGE=sage
@@ -37,7 +37,7 @@ coverage:
 # 	cd docs && $(SAGE) -sh -c "make latexpdf"
 
 clean: clean-doc
-	cd src && rm -rf *.so *.html _fgb_sage_modp.{pyx,cpp} _fgb_sage_int.cpp
+	cd $(PACKAGE) && rm -f *.so *.html *.pyc _fgb_sage_modp.{pyx,cpp} _fgb_sage_int.cpp
 
 clean-doc:
 	# cd docs && $(SAGE) -sh -c "make clean"

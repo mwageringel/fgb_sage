@@ -1,4 +1,7 @@
+from __future__ import absolute_import
 from sage.rings.polynomial.multi_polynomial_sequence import PolynomialSequence
+
+__all__ = ['MAX_PRIME', 'groebner_basis', 'eliminate', 'internal_version']
 
 MAX_PRIME = 65521
 
@@ -99,11 +102,11 @@ def groebner_basis(polys, **kwds):
 
     gb = None
     if field.characteristic() == 0:
-        import _fgb_sage_int
-        gb = _fgb_sage_int.fgb_eliminate(polyseq, n_elim_variables, **kwds)
+        from ._fgb_sage_int import fgb_eliminate
+        gb = fgb_eliminate(polyseq, n_elim_variables, **kwds)
     else:
-        import _fgb_sage_modp
-        gb = _fgb_sage_modp.fgb_eliminate(polyseq, n_elim_variables, **kwds)
+        from ._fgb_sage_modp import fgb_eliminate
+        gb = fgb_eliminate(polyseq, n_elim_variables, **kwds)
 
     from sage.rings.polynomial.multi_polynomial_ideal import MPolynomialIdeal
     if isinstance(polys, MPolynomialIdeal) and not kwds['force_elim']:
@@ -183,6 +186,6 @@ def eliminate(polys, elim_variables, **kwds):
         {'FGb_int': 14537, 'FGb_modp': 14536}
 """
 def internal_version():
-    import _fgb_sage_int, _fgb_sage_modp
+    from fgb_sage import _fgb_sage_int, _fgb_sage_modp
     return dict(FGb_int=_fgb_sage_int.internal_version(),
             FGb_modp=_fgb_sage_modp.internal_version())
