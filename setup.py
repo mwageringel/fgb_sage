@@ -17,10 +17,10 @@ cwd = os.path.abspath(os.getcwd())
 SRC = "fgb_sage"
 VERSION = open("VERSION").read().strip()
 
-def md5sum(filename):
+def sha1sum(filename):
     import hashlib
     BLOCKSIZE = 65536
-    hasher = hashlib.md5()
+    hasher = hashlib.sha1()
     with open(filename, 'rb') as f:
         buf = f.read(BLOCKSIZE)
         while len(buf) > 0:
@@ -54,7 +54,7 @@ class BuildLibfgbCommand(setuptools.Command):
                 log.error("""Download failed. You may wish to download the file "%s" manually from "%s" and place it in the "upstream/" directory.""" %
                         (checksums["tarball"], UPSTREAM_TAR_URL))
                 sys.exit(1)
-        if md5sum(libfgb_file) != checksums["md5"]:
+        if sha1sum(libfgb_file) != checksums["sha1"]:
             log.error("Checksum for file %s is different." % libfgb_file)
             sys.exit(1)
 
