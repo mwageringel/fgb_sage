@@ -56,12 +56,25 @@ access required), run::
 Issues
 ------
 
-* Support for macOS has been dropped for the time being due to difficulties in
+* macOS: Support for macOS has been dropped for the time being due to difficulties in
   compiling this package with ``-fopenmp`` since Sage version 8.8. Compiling
   the entirety of Sage with GCC support might make this work, but this was not
-  tested.
+  tested. See `issue #3 <https://github.com/mwageringel/fgb_sage/issues/3>`_.
+
+* Packaged versions of Sage: Installing this package can fail if Sage was
+  installed via a package manager of a Linux distribution; see `issue #2
+  <https://github.com/mwageringel/fgb_sage/issues/3>`_.  As a workaround,
+  download a `Sage binary <https://www.sagemath.org/download.html>`_,
+  use `Sage via Docker <https://hub.docker.com/r/sagemath/sagemath>`_ or
+  install Sage from source.
+
+* Memory leaks: The underlying FGb program leaks memory, which can be a problem
+  when computing many Gröbner bases in a single long-lived process. In this
+  case, it might be better to split the computation into several processes or
+  use a different Gröbner basis algorithm `available in Sage <sage_docs_gb_>`_.
 
 .. _SAGE: https://www.sagemath.org/
 .. _FGb: https://www-polsys.lip6.fr/~jcf/FGb/index.html
 .. _fgb_sage_gh: https://github.com/mwageringel/fgb_sage
 .. _fgb_sage_rdt: https://fgb-sage.readthedocs.io/en/latest/#module-fgb_sage
+.. _sage_docs_gb: https://doc.sagemath.org/html/en/reference/polynomial_rings/sage/rings/polynomial/multi_polynomial_ideal.html#sage.rings.polynomial.multi_polynomial_ideal.MPolynomialIdeal.groebner_basis

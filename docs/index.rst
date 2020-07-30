@@ -28,4 +28,4 @@ Links
 
 * `FGb homepage <FGb_>`_
 * ``fgb_sage`` on `GitHub <fgb_sage_gh_>`_
-* documentation for `Gröbner bases in Sage <http://doc.sagemath.org/html/en/reference/polynomial_rings/sage/rings/polynomial/multi_polynomial_ideal.html#sage.rings.polynomial.multi_polynomial_ideal.MPolynomialIdeal.groebner_basis>`_
+* documentation for `Gröbner bases in Sage <sage_docs_gb_>`_
