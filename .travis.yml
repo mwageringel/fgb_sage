@@ -1,20 +1,13 @@
-dist: bionic  # ubuntu 18.04
-
-language: python
-
-env:
-  global: APP_DIR=/app
-  matrix:
-    - DOCKER_SAGE=sagemath/sagemath:8.8
-    - DOCKER_SAGE=sagemath/sagemath:latest
-
-services:
-  - docker
+dist: focal  # ubuntu 20.04
 
 before_install:
-  - docker pull $DOCKER_SAGE
+  - sudo apt-get -y install libgsl-dev liblinbox-dev libsingular4-dev libntl-dev libflint-dev libmpfr-dev libpari-dev python3-ipywidgets sagemath
 
 install: skip
 
 script:
-  - docker run -v "$(pwd)":$APP_DIR -e APP_DIR --entrypoint=/bin/bash $DOCKER_SAGE $APP_DIR/.travis-test.sh
+  - sage --version
+  - sage -python --version
+  - echo $PATH
+  - sage setup.py test
+  - sage -python -m pip install --upgrade --no-index -v --user .

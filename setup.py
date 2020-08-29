@@ -6,6 +6,7 @@ from distutils.file_util import copy_file
 from distutils.dir_util import mkpath, remove_tree, copy_tree
 from distutils import log
 from Cython.Build import cythonize
+import sage
 from sage.env import sage_include_directories, cython_aliases, UNAME
 import os
 import sys
