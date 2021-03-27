@@ -34,7 +34,6 @@ Installation
 ============
 
 **Requirements**: Linux with a recent version of `Sage <SAGE_>`_
-(including Cython, pkgconfig,…)
 (tested with CentOS 7.5.1804, Sage 8.1, 8.4, 8.8, and on Travis-CI with
 Ubuntu 18.04, as well as with Sage 9.2 from Arch).
 
@@ -47,12 +46,33 @@ run the tests::
 After the tests passed successfully, run the following command to install the
 package for use with Sage::
 
-    sage -pip install --upgrade --no-index -v .
+    sage -python -m pip install --upgrade --no-index -v .
 
 Alternatively, to install into the Python user install directory (no root
 access required), run::
 
-    sage -pip install --upgrade --no-index -v --user .
+    sage -python -m pip install --upgrade --no-index -v --user .
+
+Packaged versions of Sage
+-------------------------
+
+If Sage was installed by the package manager of your Linux distribution, you
+may need to install a few more dependencies in order to compile this package.
+For example, on
+
+- **Arch Linux**::
+
+     pacman -S --asdeps cython python-pkgconfig
+
+- **Ubuntu**::
+
+     libgsl-dev liblinbox-dev libsingular4-dev libntl-dev libflint-dev libmpfr-dev libpari-dev python3-ipywidgets
+
+Alternatively, you can download a
+`Sage binary <https://www.sagemath.org/download.html>`_,
+use `Sage via Docker <https://hub.docker.com/r/sagemath/sagemath>`_ or
+install Sage from source.
+See also `issue #2 <https://github.com/mwageringel/fgb_sage/issues/2>`_.
 
 Issues
 ------
@@ -61,14 +81,6 @@ Issues
   compiling this package with ``-fopenmp`` since Sage version 8.8. Compiling
   the entirety of Sage with GCC support might make this work, but this was not
   tested. See `issue #3 <https://github.com/mwageringel/fgb_sage/issues/3>`_.
-
-* Packaged versions of Sage: Installing this package should work if Sage was
-  installed by a package manager of a Linux distribution.
-  If anything fails, please report this; see `issue #2
-  <https://github.com/mwageringel/fgb_sage/issues/2>`_.  As a workaround,
-  download a `Sage binary <https://www.sagemath.org/download.html>`_,
-  use `Sage via Docker <https://hub.docker.com/r/sagemath/sagemath>`_ or
-  install Sage from source.
 
 * Memory leaks: The underlying FGb program leaks memory, which can be a problem
   when computing many Gröbner bases in a single long-lived process. In this
