@@ -78,9 +78,15 @@ class BuildLibfgbCommand(setuptools.Command):
 
         log.info("Applying patches.")
         os.chdir(libfgb_builddir)
-        if os.system("sage-apply-patches %s" % os.path.join(cwd, libfgb_pkgdir, "patches")):
-            log.error("Failed to apply patches.")
-            sys.exit(1)
+        patches_dir = os.path.join(cwd, libfgb_pkgdir, "patches")
+        patchfiles = [os.path.join(patches_dir, s)
+                      for s in sorted(os.listdir(patches_dir))
+                      if s.endswith('.patch')]
+        for p in patchfiles:
+            log.info("Applying %s" % p)
+            if os.system("patch -p1 < '%s'" % p):
+                log.error("Failed to apply patches.")
+                sys.exit(1)
         os.chdir(cwd)
 
         log.info("Copying include and lib files.")

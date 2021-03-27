@@ -34,8 +34,9 @@ Installation
 ============
 
 **Requirements**: Linux with a recent version of `Sage <SAGE_>`_
+(including Cython, pkgconfig,…)
 (tested with CentOS 7.5.1804, Sage 8.1, 8.4, 8.8, and on Travis-CI with
-Ubuntu 18.04).
+Ubuntu 18.04, as well as with Sage 9.2 from Arch).
 
 First, clone the `repository from GitHub <fgb_sage_gh_>`_ and then compile and
 run the tests::
@@ -61,9 +62,10 @@ Issues
   the entirety of Sage with GCC support might make this work, but this was not
   tested. See `issue #3 <https://github.com/mwageringel/fgb_sage/issues/3>`_.
 
-* Packaged versions of Sage: Installing this package can fail if Sage was
-  installed via a package manager of a Linux distribution; see `issue #2
-  <https://github.com/mwageringel/fgb_sage/issues/3>`_.  As a workaround,
+* Packaged versions of Sage: Installing this package should work if Sage was
+  installed by a package manager of a Linux distribution.
+  If anything fails, please report this; see `issue #2
+  <https://github.com/mwageringel/fgb_sage/issues/2>`_.  As a workaround,
   download a `Sage binary <https://www.sagemath.org/download.html>`_,
   use `Sage via Docker <https://hub.docker.com/r/sagemath/sagemath>`_ or
   install Sage from source.
