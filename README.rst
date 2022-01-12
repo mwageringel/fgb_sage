@@ -34,8 +34,7 @@ Installation
 ============
 
 **Requirements**: Linux with a recent version of `Sage <SAGE_>`_
-(tested with CentOS 7.5.1804, Sage 8.1, 8.4, 8.8, and on Travis-CI with
-Ubuntu 18.04, as well as with Sage 9.2 from Arch).
+(tested with Sage 9.5.rc0 on Ubuntu 20.04 as well as with Sage 9.4 from Arch Linux).
 
 First, clone the `repository from GitHub <fgb_sage_gh_>`_ and then compile and
 run the tests::

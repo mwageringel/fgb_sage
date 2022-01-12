@@ -216,7 +216,7 @@ cdef class PolyConversion:
             IF PY_LIBMODE == 2:
                 p_SetCoeff(mon, nlInit2gmp(self.coeffs[j], one, _ring.cf), _ring)
             ELSE:
-                p_SetCoeff(mon, n_Init(self.coeffs[j], _ring), _ring)
+                p_SetCoeff(mon, n_Init(self.coeffs[j], _ring.cf), _ring)
             for k in xrange(self.n_variables):
                 overflow_check(e[k], _ring)
                 p_SetExp(mon, k+1, e[k], _ring)
