@@ -2,9 +2,6 @@
 ``fgb_sage``
 ############
 
-.. image:: https://travis-ci.com/mwageringel/fgb_sage.svg?branch=master
-   :target: https://travis-ci.com/mwageringel/fgb_sage
-   :alt: Build Status
 .. image:: https://readthedocs.org/projects/fgb-sage/badge/?version=latest
    :target: https://fgb-sage.readthedocs.io/en/latest/?badge=latest
    :alt: Documentation Status
@@ -34,7 +31,7 @@ Installation
 ============
 
 **Requirements**: Linux with a recent version of `Sage <SAGE_>`_
-(tested with Sage 9.5.rc0 on Ubuntu 20.04 as well as with Sage 9.4 from Arch Linux).
+(tested with Sage 9.5.rc0 on Ubuntu 20.04 as well as with Sage 9.6 from Arch Linux).
 
 First, clone the `repository from GitHub <fgb_sage_gh_>`_ and then compile and
 run the tests::
