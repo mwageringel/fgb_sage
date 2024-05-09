@@ -1,6 +1,7 @@
 import setuptools
 from setuptools.extension import Extension
 from setuptools.command.test import test
+import setuptools.command.build_ext
 from distutils.command import clean
 from distutils.file_util import copy_file
 from distutils.dir_util import mkpath, remove_tree, copy_tree

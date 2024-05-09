@@ -49,6 +49,19 @@ access required), run::
 
     sage -python -m pip install --upgrade --no-index -v --user .
 
+Installing into a virtual environment, assuming Sage is installed system-wide::
+
+    python -m venv --system-site-packages ./sage-venv  # assumes that sage and python-setuptools are available system-wide
+    source ./sage-venv/bin/activate                    # redefines `python` and `pip` using virtual environment
+    python -m pip install --upgrade --no-index -v .
+    cd sage-venv && python -m IPython                  # changing directory is important
+
+        In [1]: from sage.all import *
+        In [2]: R = PolynomialRing(QQ, 5, 'x', order="degrevlex(2),degrevlex(3)")
+        In [3]: I = sage.rings.ideal.Cyclic(R)
+        In [4]: import fgb_sage
+        In [5]: gb = fgb_sage.groebner_basis(I)
+
 Packaged versions of Sage
 -------------------------
 
