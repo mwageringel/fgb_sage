@@ -6,8 +6,8 @@ from distutils.file_util import copy_file
 from distutils.dir_util import mkpath, remove_tree, copy_tree
 from distutils import log
 from Cython.Build import cythonize
+from sage.env import sage_include_directories
 from sage.env import cython_aliases
-from sage.config import get_include_dirs
 import platform
 import os
 import sys
@@ -139,7 +139,7 @@ if os.path.getsize(pyx_dst) == 0:
 ext_modules = [
     cythonize(
         [Extension("fgb_sage." + name,
-            include_dirs=["local/include"] + [str(p) for p in get_include_dirs()],
+            include_dirs=["local/include"] + sage_include_directories(),
             library_dirs=["local/lib"],
             libraries=["fgb", "fgbexp", "gb", "gbexp", "minpoly", "minpolyvgf", "gmp", "m"],
             extra_compile_args=["-std=c++11", "-fopenmp"],
